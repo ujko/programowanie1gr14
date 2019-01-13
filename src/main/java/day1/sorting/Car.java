@@ -48,6 +48,26 @@ public class Car implements Comparable<Car> {
         return producer;
     }
 
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setMaxSpeed(int maxSpeed) {
+        this.maxSpeed = maxSpeed;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public void setProducer(String producer) {
+        this.producer = producer;
+    }
+
     @Override
     public int compareTo(Car o) {
         int a = producer.compareToIgnoreCase(o.getProducer());
@@ -64,10 +84,10 @@ public class Car implements Comparable<Car> {
 
         Car car = (Car) o;
 
-        if (maxSpeed != car.maxSpeed) return false;
-        if (Double.compare(car.price, price) != 0) return false;
-        if (color != null ? !color.equals(car.color) : car.color != null) return false;
-        if (name != null ? !name.equals(car.name) : car.name != null) return false;
+        //if (maxSpeed != car.maxSpeed) return false;
+        //if (Double.compare(car.price, price) != 0) return false;
+        //if (color != null ? !color.equals(car.color) : car.color != null) return false;
+       // if (name != null ? !name.equals(car.name) : car.name != null) return false;
         return producer != null ? producer.equals(car.producer) : car.producer == null;
     }
 
