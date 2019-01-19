@@ -2,15 +2,11 @@ package day2.stream;
 
 import day1.sorting.ListCreat;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Random;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -35,7 +31,7 @@ public class Main {
 //    }
 
     public static void main(String[] args) throws IOException {
-        new Main().method3();
+        new Main().readFromFile();
 
     }
 
@@ -73,7 +69,7 @@ public class Main {
         IntStream nameStream = new Random(40).ints(10);
         nameStream.forEach(System.out::println);
     }
-    private void method3() throws IOException {
+    private void readFromFile() throws IOException {
         Stream<String> lines = Files.lines(Paths.get("c:/temp/text.txt"));
         lines.forEach(System.out::println);
     }
