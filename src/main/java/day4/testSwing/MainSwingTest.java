@@ -14,7 +14,6 @@ public class MainSwingTest{
         swingFrame.setTitle("New Title");
         swingFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         swingFrame.setVisible(true);
-
     }
 
 }
