@@ -1,8 +1,6 @@
 package invoice.DAO;
 
-import invoice.model.Adress;
-import invoice.model.Client;
-import invoice.model.ClientType;
+import invoice.model.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,19 +18,19 @@ public class ClientMem implements IClient {
 
     private void listOfClientCreation() {
         Adress adress1 = new Adress(1, "Lodz", "Ulica Nazwa1", "90-123");
-        Client client1 = new Client(1, ClientType.BUSINESS, "SDA1", "Software Dev Academy1", adress1);
-        client1.setNip("123-12-12-123");
+        Indywidual client1 = new Indywidual(1, ClientType.BUSINESS, "SDA1", "Software Dev Academy1", adress1);
+
         Adress adress2 = new Adress(2, "Warszawa", "Ulica Nazwa2", "80-123");
-        Client client2 = new Client(2, ClientType.BUSINESS, "SDA2", "Software Dev Academy2", adress2);
+        Bussines client2 = new Bussines(2, ClientType.BUSINESS, "SDA2", "Software Dev Academy2", adress2);
         client2.setNip("223-12-12-123");
         Adress adress3 = new Adress(3, "Gdansk", "Ulica Nazwa3", "70-123");
-        Client client3 = new Client(3, ClientType.INDIVIDUAL, "Ala", "Ala Nowak", adress3);
-        client3.setNip("323123123");
+        Indywidual client3 = new Indywidual(3, ClientType.INDIVIDUAL, "Ala", "Ala Nowak", adress3);
+        client3.setPesel("323123123");
         Adress adress4 = new Adress(4, "Radom", "Ulica Nazwa4", "60-123");
-        Client client4 = new Client(4, ClientType.INDIVIDUAL, "Ela", "Ela Kowalska", adress4);
+        Bussines client4 = new Bussines(4, ClientType.INDIVIDUAL, "Ela", "Ela Kowalska", adress4);
         client4.setNip("4231212123");
         Adress adress5 = new Adress(5, "Sosnowiec", "Ulica Nazwa5", "50-123");
-        Client client5 = new Client(5, ClientType.FARMER, "ogrodnicy", "Szkolka Ogrodnicza", adress5);
+        Bussines client5 = new Bussines(5, ClientType.FARMER, "ogrodnicy", "Szkolka Ogrodnicza", adress5);
         client5.setNip("523-12-12-123");
 
         listOfClients.add(client1);
@@ -55,12 +53,20 @@ public class ClientMem implements IClient {
     @Override
     public boolean editClient(int clientID, Client client) {
         Client clientTemp = getClientByID(clientID);
+        if(clientTemp instanceof Indywidual && client instanceof Indywidual){
+            Indywidual indywidual = (Indywidual) client;
+            ((Indywidual) clientTemp).setPesel(indywidual.getPesel());
+        }
+        if (clientTemp instanceof Bussines && client instanceof Bussines){
+
+            Bussines bussines = (Bussines)client;
+            ((Bussines)clientTemp).setNip(bussines.getNip());
+
+        }
         clientTemp.setName(client.getName());
         clientTemp.setAdress(client.getAdress());
         clientTemp.setClientType(client.getClientType());
-        clientTemp.setNip(client.getNip());
         clientTemp.setDiscount(client.getDiscount());
-        clientTemp.setPesel(client.getPesel());
         clientTemp.setShortName(client.getShortName());
         removeClient(clientID);
         return listOfClients.add(clientTemp);
@@ -121,8 +127,18 @@ public class ClientMem implements IClient {
     @Override
     public Client getClientByNIP(String nip) {
         return listOfClients.stream()
+                .filter(x-> x instanceof Bussines)
+                .map(x-> (Bussines)x)
                 .filter(x -> nip.equals(x.getNip()))
                 .findAny()
                 .orElseThrow(() -> new IllegalArgumentException("NIP nie istnieje"));
+    }
+    public Client getClientByPESEL(String pesel) {
+        return listOfClients.stream()
+                .filter(x-> x instanceof Indywidual)
+                .map(x-> (Indywidual)x)
+                .filter(x -> pesel.equals( x.getPesel()))
+                .findAny()
+                .orElseThrow(() -> new IllegalArgumentException("PESEL nie istnieje"));
     }
 }

@@ -2,21 +2,22 @@ package invoice;
 
 import invoice.DAO.ClientMem;
 import invoice.DAO.ClientSort;
-import invoice.DAO.CompanyNameDAO;
 import invoice.DAO.IClient;
-import invoice.model.Adress;
-import invoice.model.Client;
-import invoice.model.ClientType;
-import invoice.model.CompanyName;
+import invoice.model.*;
 
 public class TestMain {
 
     public static void main(String[] args) {
-//        testDAO();
-        CompanyNameDAO companyNameDAO = new CompanyNameDAO();
-        CompanyName companyName = companyNameDAO.getCompanyName();
-        System.out.println(companyName);
+        testDAO();
+       // CompanyNameDAO companyNameDAO = new CompanyNameDAO();
+     //   CompanyName companyName = companyNameDAO.getCompanyName();
+       // System.out.println(companyName);
 
+        Product product = new Product();
+        product.setId(1);
+        product.setPrice(10);
+        product.setTax(Tax.VAT_A);
+        System.out.println(product.getPrice() + " " + (product.getPrice()*product.getTax().getValue()));
     }
 
     private static void testDAO() {
@@ -51,6 +52,10 @@ public class TestMain {
         iClient.getClientByShortName("SDA").forEach(System.out::println);
         System.out.println("Wyszukiwanie po NIP");
         System.out.println(iClient.getClientByNIP("523-12-12-123"));
-        System.out.println(iClient.getClientByNIP("2345356446"));
+        try {
+            System.out.println(iClient.getClientByNIP("2345356446"));
+        }catch (IllegalArgumentException e){
+            System.out.println("brak klienta");
+        }
     }
 }

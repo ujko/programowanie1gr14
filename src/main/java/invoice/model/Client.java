@@ -9,8 +9,8 @@ public class Client implements Comparable<Client>{
     private String name;
     private int discount;
     private Adress adress;
-    private String nip;
-    private String pesel;
+
+
 
     public Client(int id, ClientType clientType, String shortName, String name, Adress adress) {
         this.id = id;
@@ -44,13 +44,7 @@ public class Client implements Comparable<Client>{
         return adress;
     }
 
-    public String getNip() {
-        return nip;
-    }
 
-    public String getPesel() {
-        return pesel;
-    }
 
     public void setId(int id) {
         this.id = id;
@@ -76,13 +70,7 @@ public class Client implements Comparable<Client>{
         this.adress = adress;
     }
 
-    public void setNip(String nip) {
-        this.nip = nip;
-    }
 
-    public void setPesel(String pesel) {
-        this.pesel = pesel;
-    }
 
     @Override
     public String toString() {
@@ -93,8 +81,6 @@ public class Client implements Comparable<Client>{
                 name + '\'' +
                 discount +
                 adress + '\'' +
-                nip + '\'' +
-                pesel + '\'' +
                 '}';
     }
 
